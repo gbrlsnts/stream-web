@@ -18,9 +18,16 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'slim-app',
+            'name' => 'stream-app',
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
+
+        // Player settings
+        // Stream url must contain %stream% placeholder
+        'player' => [
+            'flash_url' => env('STREAM_FLASH_URL', 'rtmp://rn.barricas.rocks/stream/%stream%'),
+            'hls_url' => env('STREAM_HLS_URL', '//rn.barricas.rocks/hls/%stream%.m3u8'),
+        ]
     ],
 ];

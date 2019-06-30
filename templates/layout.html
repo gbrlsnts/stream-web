@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% if block('title') is defined %}
+    {% if title %}
     <title>{{ appname }} - {{ title }}</title>
     {% else %}
     <title>{{ appname }}</title>
     {% endif %}
     <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="/css/app.css">
+    {% block styles %}{% endblock %}
 </head>
 
 <body>
-    <div class="ui borderless main menu">
+    <div class="ui large borderless inverted main menu">
         <div class="ui container">
             <div class="header item">
                 {{ appname }}
@@ -24,12 +25,11 @@
         </div>
     </div>
 
-    <div class="ui container">
-        {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
 
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/semantic.min.js"></script>
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>

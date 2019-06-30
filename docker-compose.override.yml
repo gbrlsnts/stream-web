@@ -15,8 +15,6 @@ services:
     volumes:
       - .:/usr/src/app
       - logs:/usr/src/app/logs
-    environment:
-      docker: "true"
 
 volumes:
   logs:

@@ -1,5 +1,80 @@
 {% extends 'layout.html' %}
 
+{% block styles %}
+<link href="/css/chromecast.css" rel="stylesheet">
+<link href="//vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-    Content of the page...
+
+<div class="player wrapper">
+    <div class="ui player container">
+        <video id="player" class="video-js player" controls preload="auto" data-setup="{}" autoplay>
+    
+            {% if flash %}
+            <source src="{{ flash_url }}" type='rtmp/mp4'>
+            {% endif %}
+            
+            <!--<source src="//rn.barricas.rocks/dash/{{stream}}.mpd" type='application/dash+xml'>-->
+            <source src="{{ hls_url }}" type='application/x-mpegurl'>
+        
+        </video>
+    </div>
+</div>
+
+<div class="ui container">
+    <h1 class="ui header">{{ stream }}</h1>
+    
+    <button class="ui primary icon button" data-tooltip="Notify when stream is online">
+        <i class="bell outline icon"></i>
+    </button>
+    
+    <a href="{{ hls_url }}" target="_blank" class="ui orange basic button" data-tooltip="HTTP Stream | Stable">
+        <i class="download icon"></i>
+        VLC Playlist
+    </a>
+
+    <a href="{{ flash_url }}" class="ui orange basic button" data-tooltip="RTMP Stream | No Delay">
+        <i class="play icon"></i>
+        VLC Direct
+    </a>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+
+<script src="//vjs.zencdn.net/7.3.0/video.js"></script>
+<script src="//cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+<script src="/js/videojs.persistvolume.js"></script>
+
+<script src="/js/videojs-chromecast.min.js"></script>
+
+<script>
+    const config = {
+        plugins: {
+            chromecast: {
+                appId: 'chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID',
+                metadata: {
+                        title: '{{ stream }}'
+                }
+            }
+        }
+    };
+
+    {% if flash %}
+        config.techOrder = ['flash', 'html5'];
+    {% else %}
+        config.techOrder = ['html5'];
+    {% endif %}
+
+    const player = videojs('player', config);
+
+    player.reloadSourceOnError();
+
+    player.persistvolume({
+        namespace: 'stream'
+    });
+</script>
 {% endblock %}

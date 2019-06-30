@@ -6,8 +6,8 @@ return function (App $app) {
     $container = $app->getContainer();
 
     $container['view'] = function ($container) {
-        $view = new \Slim\Views\Twig('../templates', [
-            'cache' => '/tmp/slimcache'
+        $view = new \Slim\Views\Twig($container['settings']['renderer']['template_path'], [
+            'cache' => $container['settings']['renderer']['cache_path']
         ]);
     
         $view->getEnvironment()->addGlobal('appname', $container['settings']['app']['name']);

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nginx:
+    image: stream-app-ngx
+    links: 
+      - app
+
+  app:
+    image: stream-app-php

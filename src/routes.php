@@ -7,11 +7,14 @@ use Slim\Http\Response;
 return function (App $app) {
     $container = $app->getContainer();
 
-    $app->get('/[{name}]', function (Request $request, Response $response, array $args) use ($container) {
-        // Sample log message
-        $container->get('logger')->info("Slim-Skeleton '/' route");
-
+    $app->get('/[{name}]', function(Request $request, Response $response, array $args){
         // Render index view
-        return $container->get('renderer')->render($response, 'index.phtml', $args);
+        return $this->view->render($response, 'index.html');
+    });
+
+    $app->get('/s/{stream}', function(Request $request, Response $response, array $args) {
+        return $this->view->render($response, 'index.html', [
+            'name' => $args['stream']
+        ]);
     });
 };

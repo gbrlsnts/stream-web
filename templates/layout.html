@@ -21,11 +21,14 @@
             <div class="header item">
                 {{ appname }}
             </div>
-            <a href="#" class="item">Streams</a>
+            <a href="/s" class="item">Streams</a>
         </div>
     </div>
 
-    {% block content %}{% endblock %}
+    <div class="main content">
+        {% block content %}{% endblock %}
+    </div>
+    
 
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/semantic.min.js"></script>

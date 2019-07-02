@@ -9,8 +9,8 @@ body {
     border-radius: 0;
 }
 
-body > .ui.container:first-child {
-    margin-top: 5rem;
+.main.content > :first-child {
+    padding-top: 5rem;
 }
 
 /* player */
@@ -18,7 +18,7 @@ body > .ui.container:first-child {
 .player.wrapper {
     background: url('/img/binding_dark.png'); /* by subtle patterns */
     background-color: #202223;
-    padding: 2em 0 2em;
+    padding: 2em 0 2em 0;
 }
 
 .player.wrapper + .ui.container {

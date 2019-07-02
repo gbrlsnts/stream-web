@@ -8,6 +8,7 @@ return [
         'app' => [
             'env' => env('ENV', 'DEV'),
             'name' => env('APP_NAME', 'Stream Demo'),
+            'default_stream' => env('DEFAULT_STREAM', 'ezstream'),
         ],
 
         // Renderer settings

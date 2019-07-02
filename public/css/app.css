@@ -1,5 +1,9 @@
 /* app */
 
+body {
+    padding-bottom: 5rem;
+}
+
 .ui.main.menu {
     margin: 0;
     border-radius: 0;
@@ -12,7 +16,9 @@ body > .ui.container:first-child {
 /* player */
 
 .player.wrapper {
+    background: url('/img/binding_dark.png'); /* by subtle patterns */
     background-color: #202223;
+    padding: 2em 0 2em;
 }
 
 .player.wrapper + .ui.container {

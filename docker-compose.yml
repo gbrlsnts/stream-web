@@ -8,5 +8,3 @@ services:
 
   app:
     image: stream-app-php
-    environment:
-      docker: "true"

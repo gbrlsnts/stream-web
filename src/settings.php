@@ -19,8 +19,8 @@ return [
         // Monolog settings
         'logger' => [
             'name' => 'stream-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
-            'level' => \Monolog\Logger::DEBUG,
+            'path' => 'php://stdout',
+            'level' => env('ENV') === 'PROD' ? \Monolog\Logger::WARNING : \Monolog\Logger::DEBUG,
         ],
 
         // Player settings

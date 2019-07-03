@@ -53,21 +53,16 @@
 
 <script>
     const config = {
+        techOrder: {{ techorder | json_encode | raw }},
         plugins: {
             chromecast: {
                 appId: 'chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID',
                 metadata: {
-                        title: '{{ stream }}'
+                    title: '{{ stream }}'
                 }
             }
         }
     };
-
-    {% if flash %}
-        config.techOrder = ['flash', 'html5'];
-    {% else %}
-        config.techOrder = ['html5'];
-    {% endif %}
 
     const player = videojs('player', config);
 

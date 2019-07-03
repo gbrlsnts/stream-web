@@ -24,11 +24,15 @@ return function (App $app) {
 
     // Stream
     $app->get('/s/{stream}', function(Request $request, Response $response, array $args) use ($container) {
+        $playerSettings = $container['settings']['player'];
+        $isFlash = !is_null($request->getQueryParam('flash'));
+
         return $this->view->render($response, 'stream/stream.html', [
             'stream' => $args['stream'],
             'title' => $args['stream'],
-            'flash_url' => format_stream_url($container['settings']['player']['flash_url'], $args['stream']),
-            'hls_url' => format_stream_url($container['settings']['player']['hls_url'], $args['stream']),
+            'flash_url' => format_stream_url($playerSettings['flash_url'], $args['stream']),
+            'hls_url' => format_stream_url($playerSettings['hls_url'], $args['stream']),
+            'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
         ]);
     });
 };

@@ -1,12 +1,19 @@
 version: '3'
 
 services:
-  nginx:
-    build: ./nginx
+  nginx-app:
+    build: ./nginx/app
     ports:
       - 8080:80
     volumes:
       - .:/usr/src/app
+    links: 
+      - app
+
+  nginx-stream-origin:
+    build: ./nginx/origin
+    ports:
+      - 1935:1935
 
   app:
     build:
@@ -14,8 +21,3 @@ services:
       dockerfile: ./fpm/Dockerfile
     volumes:
       - .:/usr/src/app
-      - logs:/usr/src/app/logs
-
-volumes:
-  logs:
-    driver: 'local'

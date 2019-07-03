@@ -1,10 +1,11 @@
 version: '3'
 
 services:
-  nginx:
+  nginx-app:
     image: stream-app-ngx
-    links: 
-      - app
+
+  nginx-stream-origin:
+    image: stream-app-origin
 
   app:
     image: stream-app-php

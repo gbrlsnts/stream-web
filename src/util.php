@@ -6,7 +6,7 @@
 function env(string $variable, string $default = ''): string {
     $env = getenv($variable);
 
-    return $variable === '' ? $variable : $default;
+    return $variable !== '' ? $variable : $default;
 }
 
 /**

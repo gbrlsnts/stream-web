@@ -14,7 +14,7 @@ return [
         // Renderer settings
         'renderer' => [
             'template_path' => __DIR__ . '/../templates/',
-            'cache_path'    => env('ENV') === 'PROD' ? '/tmp/slimcache' : false,
+            'cache_path'    => env('ENV') !== 'DEV' ? '/tmp/slimcache' : false,
         ],
 
         // Monolog settings
@@ -27,8 +27,8 @@ return [
         // Player settings
         // Stream url must contain %stream% placeholder
         'player' => [
-            'flash_url'         => env('STREAM_FLASH_URL', 'rtmp://rn.barricas.rocks/stream/%stream%'),
-            'hls_url'           => env('STREAM_HLS_URL', '//rn.barricas.rocks/hls/%stream%.m3u8'),
+            'flash_url'         => env('STREAM_FLASH_URL', 'rtmp://localhost/stream/%stream%'),
+            'hls_url'           => env('STREAM_HLS_URL', 'http://localhost/hls/%stream%.m3u8'),
             'flash_techorder'   => ['flash', 'html5'],
             'default_techorder' => ['html5'],
         ]

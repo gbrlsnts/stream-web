@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  nginx-app:
+  nginx:
     build: ./nginx/app
     ports:
       - 8080:80
@@ -10,7 +10,7 @@ services:
     links: 
       - app
 
-  nginx-stream-origin:
+  origin:
     build: ./nginx/origin
     ports:
       - 1935:1935

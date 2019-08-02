@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  nginx-app:
+  nginx:
     image: stream-app-ngx
 
-  nginx-stream-origin:
+  origin:
     image: stream-app-origin
 
   app:

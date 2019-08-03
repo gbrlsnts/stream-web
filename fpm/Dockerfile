@@ -9,3 +9,5 @@ ENV ENV=DEV \
 WORKDIR /usr/src/app
 
 COPY . .
+
+ENTRYPOINT [ "./entrypoint.sh" ]

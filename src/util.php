@@ -3,7 +3,7 @@
 /**
  * Fetch an env variable or return default if not set
  */
-function env(string $variable, string $default = ''): string {
+function appenv(string $variable, string $default = ''): string {
     $env = getenv($variable);
 
     return $env !== '' ? $env : $default;

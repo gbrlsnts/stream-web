@@ -6,6 +6,8 @@ if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
 fi
 
-php ./vendor/bin/phinx -nq migrate
+php composer.phar install
+
+php ./vendor/bin/phinx && php ./vendor/bin/phinx -nq migrate
 
 php-fpm

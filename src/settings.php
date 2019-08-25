@@ -11,6 +11,15 @@ return [
             'default_stream'    => appenv('DEFAULT_STREAM', 'ezstream'),
         ],
 
+        // Database settings
+        'database' => [
+            'driver'                        => 'sqlite',
+            'database'                      => absolute_path('data/app.sqlite3'),
+            'charset'                       => 'utf8',
+            'collation'                     => 'utf8_unicode_ci',
+            'foreign_key_constraints'       => true,
+        ],
+
         // Renderer settings
         'renderer' => [
             'template_path' => __DIR__ . '/../templates/',

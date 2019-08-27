@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="ui container">
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui header">
+                Log-in
+            </h2>
+            <form class="ui large form {% if hasError %} error {% endif %}" enctype="application/x-www-form-urlencoded" action="/login" method="POST">
+                <div class="ui raised segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="username" placeholder="Username" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="password" placeholder="Password" autocomplete="off">
+                        </div>
+                    </div>
+                    <button type="submit" class="ui fluid large primary submit button">Login</button>
+                </div>
+    
+                <div class="ui error message">
+                    {% if hasError %}
+                        The username or password are invalid
+                    {% endif %}
+                </div>
+    
+            </form>
+    
+        </div>
+    </div>
+</div>
+
+{% endblock %}

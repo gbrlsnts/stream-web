@@ -19,7 +19,7 @@ $app = new \Slim\App($settings);
 
 // Set up database
 $database = require __DIR__ . '/../src/database/bootstrap.php';
-$database($app);
+$database($app->getContainer()->get('settings')['database']);
 
 // Set up dependencies
 $dependencies = require __DIR__ . '/../src/dependencies.php';

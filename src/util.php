@@ -25,7 +25,7 @@ function format_stream_url(string $url, string $stream): string
  */
 function absolute_path(string $relative): string
 {
-    $root = dirname(__FILE__) . '../';
+    $root = dirname(__FILE__) . '/../';
 
     return realpath($root . $relative);
 }

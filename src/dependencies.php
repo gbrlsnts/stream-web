@@ -28,4 +28,10 @@ return function (App $app) {
         $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
         return $logger;
     };
+
+    // Auth
+    $container['auth'] = function($c) {
+        $settings = $c->get('settings')['app'];
+        return new \App\Services\Auth($settings['password_algo']);
+    };
 };

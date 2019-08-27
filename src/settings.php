@@ -9,6 +9,7 @@ return [
             'env'               => appenv('ENV', 'DEV'),
             'name'              => appenv('APP_NAME', 'Stream Demo'),
             'default_stream'    => appenv('DEFAULT_STREAM', 'ezstream'),
+            'password_algo'     => appenv('PASSWORD_ALGO') ?: PASSWORD_DEFAULT,
         ],
 
         // Database settings

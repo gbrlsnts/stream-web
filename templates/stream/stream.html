@@ -12,11 +12,11 @@
         <video id="player" class="video-js player" controls preload="auto" data-setup="{}" autoplay>
     
             {% if flash %}
-            <source src="{{ flash_url }}" type='rtmp/mp4'>
+            <source src="{{ flashUrl }}" type='rtmp/mp4'>
             {% endif %}
             
             <!--<source src="//rn.barricas.rocks/dash/{{stream}}.mpd" type='application/dash+xml'>-->
-            <source src="{{ hls_url }}" type='application/x-mpegurl'>
+            <source src="{{ hlsUrl }}" type='application/x-mpegurl'>
         
         </video>
     </div>
@@ -29,12 +29,12 @@
         <i class="bell outline icon"></i>
     </button>
     
-    <a href="{{ hls_url }}" target="_blank" class="ui orange basic button" data-tooltip="HTTP Stream | Stable">
+    <a href="{{ hlsUrl }}" target="_blank" class="ui orange basic button" data-tooltip="HTTP Stream | Stable">
         <i class="download icon"></i>
         VLC Playlist
     </a>
 
-    <a href="{{ flash_url }}" class="ui orange basic button" data-tooltip="RTMP Stream | No Delay">
+    <a href="{{ flashUrl }}" class="ui orange basic button" data-tooltip="RTMP Stream | No Delay">
         <i class="play icon"></i>
         VLC Direct
     </a>

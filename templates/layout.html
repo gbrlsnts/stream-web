@@ -21,7 +21,25 @@
             <div class="header item">
                 {{ appname }}
             </div>
+            {% if authUser and authUser.can_list_streams %}
             <a href="/s" class="item">Streams</a>
+            {% endif %}
+            
+            <div class="right menu">
+                {% if authUser %}
+                <a class="ui item">
+                    {{ authUser.username }}
+                </a>
+                <a class="ui item" href="/logout">
+                    Logout
+                </a>
+                {% else %}
+                <a class="ui item" href="/login">
+                    Login
+                </a>
+                {% endif %}
+            </div>
+            
         </div>
     </div>
 

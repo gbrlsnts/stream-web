@@ -7,12 +7,10 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 /**
  * Bootstrap the database connection
  */
-return function (App $app) {
-    $container = $app->getContainer();
-
+return function ($settings) {
     $capsule = new Capsule();
 
-    $capsule->addConnection($container['settings']['database']);
+    $capsule->addConnection($settings);
     
     $capsule->setAsGlobal();
     $capsule->bootEloquent();

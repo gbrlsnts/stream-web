@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 return function (App $app) {
 
+    // Add trailing slashes
     $app->add(function (Request $request, Response $response, callable $next) {
         $uri = $request->getUri();
         $path = $uri->getPath();
@@ -22,6 +23,25 @@ return function (App $app) {
                 return $next($request->withUri($uri), $response);
             }
         }
+    
+        return $next($request, $response);
+    });
+
+    // Inject authenticated user to request and template data
+    $app->add(function (Request $request, Response $response, callable $next) use ($app) {
+        $container = $app->getContainer();
+
+        $authService = $container->get('auth');
+        $viewService = $container->get('view');
+
+        $user = null;
+
+        if ($authService->isAuthenticated()) {
+            $user = $authService->getAuthenticatedUser();
+        }
+
+        $request = $request->withAttribute('user', $user);
+        $viewService->getEnvironment()->addGlobal('authUser', $user);
     
         return $next($request, $response);
     });

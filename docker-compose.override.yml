@@ -14,6 +14,7 @@ services:
     build: ./nginx/origin
     ports:
       - 1935:1935
+      - 8181:80
 
   app:
     build:

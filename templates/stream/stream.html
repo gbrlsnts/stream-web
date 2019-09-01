@@ -25,16 +25,12 @@
 <div class="ui container">
     <h1 class="ui header">{{ stream }}</h1>
     
-    <button class="ui primary icon button" data-tooltip="Notify when stream is online">
-        <i class="bell outline icon"></i>
-    </button>
-    
-    <a href="{{ hlsUrl }}" target="_blank" class="ui orange basic button" data-tooltip="HTTP Stream | Stable">
+    <a href="{{ hlsUrl }}" download class="ui orange basic button" data-tooltip="HTTP Stream | Stable">
         <i class="download icon"></i>
         VLC Playlist
     </a>
 
-    <a href="{{ flashUrl }}" class="ui orange basic button" data-tooltip="RTMP Stream | No Delay">
+    <a href="{{ flashUrl }}" class="ui orange basic button" data-tooltip="RTMP Stream | No Delay | Copy the link">
         <i class="play icon"></i>
         VLC Direct
     </a>

@@ -20,7 +20,7 @@ class UserSeed extends AbstractSeed
         $data = [
             [
                 'username' => 'ezstream',
-                'password' => \password_hash('admin', $settings['settings']['app']['password_algo']),
+                'password' => \password_hash($settings['settings']['app']['default_password'], $settings['settings']['app']['password_algo']),
                 'email' => 'changeme@example.com',
                 'is_admin' => true,
                 'view_stream_list' => true,

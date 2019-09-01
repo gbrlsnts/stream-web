@@ -2,6 +2,7 @@
 
 
 use Phinx\Seed\AbstractSeed;
+use App\Models\User;
 
 class UserSeed extends AbstractSeed
 {
@@ -17,7 +18,7 @@ class UserSeed extends AbstractSeed
     {
         $settings = require __DIR__ . '/../../settings.php';
 
-        $data = [
+        $userData = [
             [
                 'username' => 'ezstream',
                 'password' => \password_hash($settings['settings']['app']['default_password'], $settings['settings']['app']['password_algo']),
@@ -30,6 +31,18 @@ class UserSeed extends AbstractSeed
         ];
 
         $users = $this->table('users');
-        $users->insert($data)->save();
+        $users->insert($userData)->save();
+
+        // Insert admin stream
+        $streamData = [
+            [
+                'id' => 1,
+                'name' => $userData[0]['username'],
+                'created_at' => 'now'
+            ]
+        ];
+
+        $streams = $this->table('streams');
+        $streams->insert($streamData)->save();
     }
 }

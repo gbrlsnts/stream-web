@@ -5,6 +5,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 use App\Middleware\NoAuthenticationRedirectToStream;
+use App\Models\Stream;
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -24,7 +25,12 @@ return function (App $app) {
             return $response->withRedirect('/s/' . $settings['app']['default_stream']);
         }
 
-        return $this->view->render($response, 'stream/stream-list.html');
+        $stream = new Stream();
+        $streamList = $stream->all();
+
+        return $this->view->render($response, 'stream/stream-list.html', [
+            'streams' => $streamList
+        ]);
     })->add(new NoAuthenticationRedirectToStream($authService, $settings['app']['default_stream']));
 
     // Stream

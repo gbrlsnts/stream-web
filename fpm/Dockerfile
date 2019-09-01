@@ -1,5 +1,7 @@
 FROM php:7.3-fpm-alpine
 
+VOLUME [ "/usr/src/app/data" ]
+
 ENV ENV=DEV \
     APP_NAME='Stream Demo' \
     DEFAULT_STREAM=ezstream \

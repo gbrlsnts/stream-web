@@ -8,6 +8,6 @@ fi
 
 php composer.phar install
 
-php ./vendor/bin/phinx && php ./vendor/bin/phinx -nq migrate
+php ./vendor/bin/phinx && php ./vendor/bin/phinx -nq migrate && php ./vendor/bin/phinx -nq seed:run
 
 php-fpm

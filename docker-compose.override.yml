@@ -22,3 +22,4 @@ services:
       dockerfile: ./fpm/Dockerfile
     volumes:
       - .:/usr/src/app
+      - ./data:/usr/src/app/data

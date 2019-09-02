@@ -7,7 +7,7 @@ function appenv(string $variable, string $default = ''): string
 {
     $env = getenv($variable);
 
-    return $env !== '' ? $env : $default;
+    return $env && $env !== '' ? $env : $default;
 }
 
 /**

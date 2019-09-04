@@ -16,6 +16,10 @@ class UserSeed extends AbstractSeed
      */
     public function run()
     {
+        if (!$this->shouldSeed()) {
+            return;
+        }
+
         $settings = require __DIR__ . '/../../settings.php';
 
         $userData = [
@@ -44,5 +48,13 @@ class UserSeed extends AbstractSeed
 
         $streams = $this->table('streams');
         $streams->insert($streamData)->save();
+    }
+
+    private function shouldSeed(): bool
+    {
+        $stmt = $this->query('SELECT COUNT(id) as `count` FROM users');
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return !$result || $result->count < 1;
     }
 }

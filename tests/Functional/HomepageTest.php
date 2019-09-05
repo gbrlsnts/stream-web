@@ -11,30 +11,18 @@ class HomepageTest extends BaseTestCase
     {
         $response = $this->runApp('GET', '/');
 
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('SlimFramework', (string)$response->getBody());
-        $this->assertNotContains('Hello', (string)$response->getBody());
+        $this->assertEquals(302, $response->getStatusCode());
     }
 
-    /**
-     * Test that the index route with optional name argument returns a rendered greeting
+        /**
+     * Test that the index route returns a rendered response containing the text 'SlimFramework' but not a greeting
      */
-    public function testGetHomepageWithGreeting()
+    public function testDefaultStreamPage()
     {
-        $response = $this->runApp('GET', '/name');
+        $response = $this->runApp('GET', '/s/ezstream');
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('Hello name!', (string)$response->getBody());
-    }
-
-    /**
-     * Test that the index route won't accept a post request
-     */
-    public function testPostHomepageNotAllowed()
-    {
-        $response = $this->runApp('POST', '/', ['test']);
-
-        $this->assertEquals(405, $response->getStatusCode());
-        $this->assertContains('Method not allowed', (string)$response->getBody());
+        $this->assertStringContainsString('ezstream', (string)$response->getBody());
+        $this->assertStringNotContainsString('index', (string)$response->getBody());
     }
 }

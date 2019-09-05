@@ -1,32 +1,15 @@
 /* app */
 
 body {
-    background-color: #DADADA;
-    padding-bottom: 5rem;
+    padding-bottom: 1em;
 }
 
 .ui.main.menu {
     margin: 0;
     border-radius: 0;
 }
-
-.main.content > :first-child {
-    padding-top: 5rem;
-}
-
 /* player */
 
 .player.wrapper {
-    background: url('/img/binding_dark.png'); /* by subtle patterns */
-    background-color: #202223;
     padding: 2em 0 2em 0;
-}
-
-.player.wrapper + .ui.container {
-    padding-top: 1em;
-}
-
-.video-js.player {
-    width: 100%;
-    height: 40rem;
 }

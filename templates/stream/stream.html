@@ -9,7 +9,7 @@
 
 <div class="player wrapper">
     <div class="ui player container">
-        <video id="player" class="video-js player" controls preload="auto" data-setup="{}" autoplay>
+        <video id="player" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" data-setup="{}" autoplay>
     
             {% if flash %}
             <source src="{{ flashUrl }}" type='rtmp/mp4'>
@@ -23,17 +23,19 @@
 </div>
 
 <div class="ui container">
-    <h1 class="ui header">{{ stream }}</h1>
-    
-    <a href="{{ hlsUrl }}" download class="ui orange basic button" data-tooltip="HTTP Stream | Stable">
-        <i class="download icon"></i>
-        VLC Playlist
-    </a>
+    <div class="ui inverted segment">
+        <h1 class="ui header">{{ stream }}</h1>
+        
+        <a href="{{ hlsUrl }}" download class="ui orange inverted button" data-tooltip="HTTP Stream | Stable">
+            <i class="download icon"></i>
+            VLC Playlist
+        </a>
 
-    <a href="{{ flashUrl }}" class="ui orange basic button" data-tooltip="RTMP Stream | No Delay | Copy the link">
-        <i class="play icon"></i>
-        VLC Direct
-    </a>
+        <a href="{{ flashUrl }}" class="ui orange inverted button" data-tooltip="RTMP Stream | No Delay | Copy the link">
+            <i class="play icon"></i>
+            VLC Direct
+        </a>
+    </div>
 </div>
 
 {% endblock %}

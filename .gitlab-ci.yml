@@ -1,0 +1,21 @@
+image:
+  name: docker/compose:1.22.0
+  entrypoint: ["/bin/sh", "-c"]
+
+services:
+    - docker:dind
+
+stages:
+    - Build
+    
+Build:
+    stage: Build
+    before_script:
+        - docker version
+        - docker-compose version
+    script:
+        - docker-compose down
+        - docker-compose build
+        - docker-compose up
+    only:
+        - master

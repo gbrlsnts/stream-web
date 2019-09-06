@@ -2,7 +2,9 @@ version: '3'
 
 services:
   nginx:
-    build: ./nginx/app
+    build: 
+      context: ./
+      dockerfile: ./nginx/app/Dockerfile
     ports:
       - 8080:80
     volumes:

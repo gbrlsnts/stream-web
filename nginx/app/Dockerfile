@@ -1,3 +1,6 @@
 FROM nginx:1.17
 
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /usr/src/app/public
+
+COPY ./nginx/app/nginx.conf /etc/nginx/nginx.conf
+COPY ./public /usr/src/app/public

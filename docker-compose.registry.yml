@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  nginx:
+    image: ${REGISTRY_HOST}/stream-app-ngx
+
+  origin:
+    image: ${REGISTRY_HOST}/stream-app-origin
+
+  app:
+    image: ${REGISTRY_HOST}/stream-app-php

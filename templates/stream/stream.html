@@ -15,7 +15,7 @@
             <source src="{{ flashUrl }}" type='rtmp/mp4'>
             {% endif %}
             
-            <!--<source src="//rn.barricas.rocks/dash/{{stream}}.mpd" type='application/dash+xml'>-->
+            <!--<source src="//rn.barricas.rocks/dash/{{ stream.name }}.mpd" type='application/dash+xml'>-->
             <source src="{{ hlsUrl }}" type='application/x-mpegurl'>
         
         </video>
@@ -24,18 +24,41 @@
 
 <div class="ui container">
     <div class="ui inverted segment">
-        <h1 class="ui header">{{ stream }}</h1>
+        <h1 class="ui header">{{ stream.name }}</h1>
         
-        <a href="{{ hlsUrl }}" download class="ui orange inverted button" data-tooltip="HTTP Stream | Stable">
+        <a href="{{ hlsUrl }}" class="ui orange inverted button" data-tooltip="HTTP Stream | Stable" download target="_blank">
             <i class="download icon"></i>
             VLC Playlist
         </a>
 
+        {% if isOwner %}
         <a href="{{ flashUrl }}" class="ui orange inverted button" data-tooltip="RTMP Stream | No Delay | Copy the link">
             <i class="play icon"></i>
             VLC Direct
         </a>
+        {% endif %}
     </div>
+
+    {% if isOwner %}
+    <div class="ui inverted stream settings segment">
+        <h1 class="ui header">Admin</h1>
+
+        {% if not stream.is_private %}
+        <button class="ui red inverted icon button" data-tooltip="Lock stream">
+            <i class="lock icon"></i>
+        </button>
+        {% else %}
+        <button class="ui green inverted icon button" data-tooltip="Unlock stream">
+            <i class="unlock icon"></i>
+        </button>
+        {% endif %}
+
+        <div class="ui fitted divider"></div>
+
+        <h3 class="ui header">Access Tokens</h3>
+
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
@@ -56,7 +79,7 @@
             chromecast: {
                 appId: 'chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID',
                 metadata: {
-                    title: '{{ stream }}'
+                    title: '{{ stream.name }}'
                 }
             }
         }

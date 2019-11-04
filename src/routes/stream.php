@@ -35,15 +35,22 @@ return function (App $app) {
 
     // Stream
     $app->get('/s/{stream}', function(Request $request, Response $response, array $args) use ($settings) {
+        $user = $request->getAttribute('user');
+
         $playerSettings = $settings['player'];
         $isFlash = !is_null($request->getQueryParam('flash'));
+        $streamName = $args['stream'];
+
+        $stream = new Stream();
+        $streamElement = $stream->where('name', $streamName)->first();
 
         return $this->view->render($response, 'stream/stream.html', [
-            'stream' => $args['stream'],
-            'title' => $args['stream'],
+            'stream' => $streamElement,
+            'title' => $streamElement->name,
             'flashUrl' => format_stream_url($playerSettings['flash_url'], $args['stream']),
             'hlsUrl' => format_stream_url($playerSettings['hls_url'], $args['stream']),
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
+            'isOwner' => $streamElement->id === $_SESSION['user_id'], // stream id is the same as user id
         ]);
     });
 };

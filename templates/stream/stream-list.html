@@ -5,12 +5,14 @@
 <div class="ui container">
     <h1 class="ui header">Stream list</h1>
 
-    <div class="ui grid">
+    <div class="ui streams grid">
         {% for stream in streams %}
         <div class="four wide column">
-            <div class="ui segment">
-                <a href="/s/{{ stream.name }}">{{ stream.name }}</a>
-            </div>
+            <a href="/s/{{ stream.name }}">
+                <div class="ui segment">
+                    {{ stream.name }}
+                </div>
+            </a>
         </div>
         {% endfor %}
     </div>

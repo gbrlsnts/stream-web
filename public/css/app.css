@@ -8,6 +8,21 @@ body {
     margin: 0;
     border-radius: 0;
 }
+
+.main.content > .ui.container {
+    padding: 2em 0 2em 0;
+}
+
+/* streams */
+.ui.streams.grid a:link > div,
+.ui.streams.grid a:visited > div {
+    color: black;
+}
+
+.stream.settings.segment > .divider {
+    margin-top: .5em;
+}
+
 /* player */
 
 .player.wrapper {

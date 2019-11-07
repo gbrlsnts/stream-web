@@ -42,7 +42,11 @@ return function (App $app) {
         $streamName = $args['stream'];
 
         $stream = new Stream();
-        $streamElement = $stream->where('name', $streamName)->first();
+        $streamElement = $stream
+            ->with('tokens')
+            ->where('name', $streamName)
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         return $this->view->render($response, 'stream/stream.html', [
             'stream' => $streamElement,

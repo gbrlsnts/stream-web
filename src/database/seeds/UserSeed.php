@@ -4,6 +4,8 @@
 use Phinx\Seed\AbstractSeed;
 use App\Models\User;
 
+use Carbon\Carbon;
+
 class UserSeed extends AbstractSeed
 {
     /**
@@ -30,7 +32,7 @@ class UserSeed extends AbstractSeed
                 'is_admin' => true,
                 'view_stream_list' => true,
                 'is_active' => true,
-                'created_at' => 'now'
+                'created_at' => Carbon::now()->toDateTimeString(),
             ]
         ];
 
@@ -42,7 +44,7 @@ class UserSeed extends AbstractSeed
             [
                 'id' => 1,
                 'name' => $userData[0]['username'],
-                'created_at' => 'now'
+                'created_at' => Carbon::now()->toDateTimeString(),
             ]
         ];
 

@@ -15,6 +15,7 @@
         "php": ">=5.6",
         "illuminate/database": "^5.8",
         "monolog/monolog": "^1.17",
+        "nesbot/carbon": "^2.26",
         "robmorgan/phinx": "^0.10.8",
         "slim/slim": "^3.1",
         "slim/twig-view": "^2.5"

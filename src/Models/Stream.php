@@ -8,4 +8,9 @@ class Stream extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(User::class, 'id');
     }
+
+    public function tokens()
+    {
+        return $this->hasMany(Token::class);
+    }
 }

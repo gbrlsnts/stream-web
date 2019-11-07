@@ -26,6 +26,16 @@
     <div class="ui inverted segment">
         <h1 class="ui header">{{ stream.name }}</h1>
         
+        {% if not stream.is_private %}
+        <a class="ui red inverted icon button" data-tooltip="Lock stream">
+            <i class="lock icon"></i>
+        </a>
+        {% else %}
+        <a class="ui green inverted icon button" data-tooltip="Unlock stream">
+            <i class="unlock icon"></i>
+        </a>
+        {% endif %}
+
         <a href="{{ hlsUrl }}" class="ui orange inverted button" data-tooltip="HTTP Stream | Stable" download target="_blank">
             <i class="download icon"></i>
             VLC Playlist
@@ -40,23 +50,80 @@
     </div>
 
     {% if isOwner %}
-    <div class="ui inverted stream settings segment">
-        <h1 class="ui header">Admin</h1>
+    <h3 class="ui dividing header">Access Tokens</h3>
 
-        {% if not stream.is_private %}
-        <button class="ui red inverted icon button" data-tooltip="Lock stream">
-            <i class="lock icon"></i>
-        </button>
+    <form class="ui form" action="/token" method="POST">
+
+        <div class="inline fields">
+            <div class="field">
+                <input type="text" name="description" id="description" placeholder="Description (Mandatory)" autocomplete="off" required>
+            </div>
+            <div class="field">
+                <input type="number" name="max_usages" id="max_usages" placeholder="Max Usages" min="0">
+            </div>
+            <div class="field">
+                <input type="date" name="expires_at" id="expires_at" placeholder="Expires At">
+            </div>
+            <button class="ui green inverted button" type="submit">
+                <i class="plus icon"></i> Create Token
+            </button>
+        </div>
+
+    </form>
+
+    <div class="tokens wrapper">
+        {% if stream.tokens|length > 0 %}
+        <table class="ui selectable inverted table">
+            <thead>
+                <th></th>
+                <th>Token</th>
+                <th>Description</th>
+                <th>Usages (max)</th>
+                <th>Created</th>
+                <th>Expires</th>
+            </thead>
+            <tbody>
+                {% for token in stream.tokens %}
+                <tr>
+                    <td>
+                        <a class="ui red inverted icon button" data-tooltip="Delete token">
+                            <i class="trash icon"></i>
+                        </a>
+                    </td>
+                    <td>
+                        {{ token.description }}
+                    </td>
+                    <td>
+                        {{ token.token }}
+                    </td>
+                    <td>
+                        {{ token.num_usages }}
+                        
+                        {% if token.max_usages > 0 %}
+                            ({{ token.max_usages }})
+                        {% else %}
+                            (inf)
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ token.created_at }}
+                    </td>
+                    <td>
+                        {% if token.expires_at %}
+                            {{ token.expires_at }}
+                        {% else %}
+                            never
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
-        <button class="ui green inverted icon button" data-tooltip="Unlock stream">
-            <i class="unlock icon"></i>
-        </button>
+        <div class="ui info message">
+            No tokens to show
+        </div>
         {% endif %}
-
-        <div class="ui fitted divider"></div>
-
-        <h3 class="ui header">Access Tokens</h3>
-
     </div>
     {% endif %}
 </div>

@@ -19,12 +19,14 @@ body {
     color: black;
 }
 
-.stream.settings.segment > .divider {
-    margin-top: .5em;
-}
-
 /* player */
 
 .player.wrapper {
     padding: 2em 0 2em 0;
+}
+
+/* tokens */
+
+.tokens.wrapper {
+    margin-top: .5em;
 }

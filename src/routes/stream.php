@@ -25,8 +25,7 @@ return function (App $app) {
             return $response->withRedirect('/s/' . $settings['app']['default_stream']);
         }
 
-        $stream = new Stream();
-        $streamList = $stream->all();
+        $streamList = (new Stream())->all();
 
         return $this->view->render($response, 'stream/stream-list.html', [
             'streams' => $streamList
@@ -41,8 +40,7 @@ return function (App $app) {
         $isFlash = !is_null($request->getQueryParam('flash'));
         $streamName = $args['stream'];
 
-        $stream = new Stream();
-        $streamElement = $stream
+        $streamElement = (new Stream())
             ->with('tokens')
             ->where('name', $streamName)
             ->orderBy('created_at', 'desc')
@@ -56,6 +54,34 @@ return function (App $app) {
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
             'isOwner' => $streamElement->id === $_SESSION['user_id'], // stream id is the same as user id
         ]);
+    });
+
+    $app->post('/s/{stream}/lock', function(Request $request, Response $response, array $args) {
+        $user = $request->getAttribute('user');
+        $stream = (new Stream)->where('name', $args['stream'])->first();
+
+        if(is_null($user) || $user->id !== $stream->id) {
+            return $response->withStatus(403);
+        }
+
+        $stream->is_private = 1;
+        $stream->save();
+
+        return $response->withRedirect('/s/'.$stream->name);
+    });
+
+    $app->post('/s/{stream}/unlock', function(Request $request, Response $response, array $args) {
+        $user = $request->getAttribute('user');
+        $stream = (new Stream)->where('name', $args['stream'])->first();
+
+        if(is_null($user) || $user->id !== $stream->id) {
+            return $response->withStatus(403);
+        }
+
+        $stream->is_private = 0;
+        $stream->save();
+
+        return $response->withRedirect('/s/'.$stream->name);
     });
 };
 

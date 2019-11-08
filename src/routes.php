@@ -23,4 +23,8 @@ return function (App $app) {
     // Auth routes
     $auth = require __DIR__ . '/routes/auth.php';
     $auth($app);
+
+    // Token routes
+    $token = require __DIR__ . '/routes/token.php';
+    $token($app);
 };

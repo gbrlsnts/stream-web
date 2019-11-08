@@ -13,6 +13,10 @@ body {
     padding: 2em 0 2em 0;
 }
 
+form.button.form {
+    display: inline;
+}
+
 /* streams */
 .ui.streams.grid a:link > div,
 .ui.streams.grid a:visited > div {

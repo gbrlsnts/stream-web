@@ -29,9 +29,14 @@ return function (App $app) {
         return $logger;
     };
 
-    // Auth
+    // Auth Service
     $container['auth'] = function($c) {
         $settings = $c->get('settings')['app'];
         return new \App\Services\Auth($settings['password_algo']);
+    };
+
+    // Token Service
+    $container['token'] = function($c) {
+        return new \App\Services\Token();
     };
 };

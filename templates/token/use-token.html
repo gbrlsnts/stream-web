@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="ui container">
+        <div class="ui three column centered grid">
+            <div class="column">
+                <div class="ui error icon message">
+                    <i class="lock icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Protected stream
+                        </div>
+                        <p>This is a protected stream. To view, enter the access token.</p>
+                    </div>
+                </div>
+
+                <div class="ui inverted segment">
+                    <h1 class="ui centered dividing header">Enter Access Token</h1>
+
+                    <form class="ui form" action="/token/try/{{ stream.name }}" method="post">
+                        <div class="field">
+                            <input type="text" name="token" id="token" placeholder="Token" autocomplete="off" required>
+                        </div>
+
+                        <button class="ui green inverted fluid button" type="submit">
+                            <i class="sign-in icon"></i> Use Token
+                        </button>
+                    </form>
+                </div>
+
+                {% if hasError %}
+                <div class="ui error icon message">
+                    <i class="warning icon"></i>
+                    <div class="content">
+                        <p>The provided token is invalid.</p>
+                    </div>
+                </div>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

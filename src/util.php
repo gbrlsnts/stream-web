@@ -29,3 +29,14 @@ function absolute_path(string $relative): string
 
     return realpath($root . $relative);
 }
+
+/**
+ * Generate a token with a given size. Default = 5
+ *
+ * @param integer $size
+ * @return string
+ */
+function generate_token(int $size = 5): string
+{
+    return strtoupper(substr(bin2hex(random_bytes($size)), 0, $size));
+}

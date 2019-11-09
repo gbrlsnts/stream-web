@@ -5,12 +5,16 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 use App\Middleware\NoAuthenticationRedirectToStream;
+use App\Middleware\AccessTokenPrivateStream;
 use App\Models\Stream;
 
 return function (App $app) {
     $container = $app->getContainer();
     $settings = $container->get('settings');
+    $router = $app->getContainer()->get('router');
+
     $authService = $container->get('auth');
+    $tokenService = $container->get('token');
 
     // Stream list aliases
     $app->redirect('/stream', '/s', 301);
@@ -54,7 +58,7 @@ return function (App $app) {
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
             'isOwner' => $streamElement->id === $_SESSION['user_id'], // stream id is the same as user id
         ]);
-    });
+    })->add(new AccessTokenPrivateStream($router, $authService, $tokenService));
 
     $app->post('/s/{stream}/lock', function(Request $request, Response $response, array $args) {
         $user = $request->getAttribute('user');

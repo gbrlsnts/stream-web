@@ -35,8 +35,19 @@ return function (App $app) {
         return new \App\Services\Auth($settings['password_algo']);
     };
 
+    // Crypto Service
+    $container['crypto'] = function($c) {
+        $settings = $c->get('settings')['app'];
+
+        $crypto = new \App\Services\Crypto($settings['encryption_key_path']);
+        $crypto->boot();
+
+        return $crypto;
+    };
+
     // Token Service
     $container['token'] = function($c) {
-        return new \App\Services\Token();
+        $crypto = $c->get('crypto');
+        return new \App\Services\Token($crypto);
     };
 };

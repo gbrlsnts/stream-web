@@ -1,4 +1,5 @@
 /data/app.sqlite3
+/data/crypto.key
 /vendor/
 /logs/*
 !/logs/README.md

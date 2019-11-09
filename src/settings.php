@@ -6,12 +6,13 @@ return [
 
         // App settings
         'app' => [
-            'env'               => appenv('ENV', 'DEV'),
-            'name'              => appenv('APP_NAME', 'Stream Demo'),
-            'default_stream'    => appenv('DEFAULT_STREAM', 'ezstream'),
-            'default_password'  => appenv('DEFAULT_PASSWORD', 'ezstream'),
-            'password_algo'     => appenv('PASSWORD_ALGO') ?: PASSWORD_DEFAULT,
-            'token_size'        => appenv('TOKEN_SIZE', 5),
+            'env'                   => appenv('ENV', 'DEV'),
+            'name'                  => appenv('APP_NAME', 'Stream Demo'),
+            'default_stream'        => appenv('DEFAULT_STREAM', 'ezstream'),
+            'default_password'      => appenv('DEFAULT_PASSWORD', 'ezstream'),
+            'password_algo'         => appenv('PASSWORD_ALGO') ?: PASSWORD_DEFAULT,
+            'token_size'            => appenv('TOKEN_SIZE', 5),
+            'encryption_key_path'   => absolute_path('data/crypto.key'),
         ],
 
         // Database settings

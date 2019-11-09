@@ -2,17 +2,18 @@
 
 namespace App\Middleware;
 
-use Slim\App;
-use Slim\Http\Response;
-
 use Psr\Http\Message\ServerRequestInterface as PsrRequest;
 use Psr\Http\Message\ResponseInterface as PsrResponse;
 
 use App\Models\User;
 use App\Services\Auth;
 
+use App\Traits\RedirectsUsers;
+
 class NoAuthenticationRedirectToStream
 {
+    use RedirectsUsers;
+
     /**
      * Auth service
      *
@@ -53,21 +54,6 @@ class NoAuthenticationRedirectToStream
         }
 
         return $this->redirectUser($request, $response, $this->createRedirectPath());
-    }
-
-    /**
-     * Creates a response with a redirect
-     *
-     * @param PsrRequest $request
-     * @param PsrResponse $response
-     * @param string $to
-     * @return PsrResponse
-     */
-    protected function redirectUser(PsrRequest $request, PsrResponse $response, string $to): PsrResponse
-    {   
-        $response = new Response();
-
-        return $response->withRedirect($to);
     }
 
     /**

@@ -13,33 +13,32 @@ return function (App $app) {
     $settings = $container->get('settings');
     $tokenService = $container->get('token');
 
-    $app->get('/token/stream/{token}/{stream}', function(Request $request, Response $response, array $args) use ($tokenService) {
-        // auth token and redirect
-        // todo: test token and persist cookie by service. redirect to use token page if fails
-    });
-
     $app->get('/token/use/{stream}', function(Request $request, Response $response, array $args) {
         $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
 
         return $this->view->render($response, 'token/use-token.html', [
             'stream' => $stream,
         ]);
-    });
+    })->setName('token-use');
 
     $app->post('/token/try/{stream}', function(Request $request, Response $response, array $args) use ($tokenService) {
         $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
 
-        if($tokenService->isTokenValid($stream->id, $request->getParsedBodyParam('token', ''))) {
-            // todo: increment usages, persist cookie by service
+        $token = $request->getParsedBodyParam('token', '');
 
-            return $response->withRedirect('/s/'.$stream->name);
+        if($tokenService->isTokenValid($stream->id, $token)) {
+            $tokenService->incrementTokenUsages($stream->id, $token);
+
+            return $tokenService
+                ->addTokenToResponse($stream->name, $token, $response)
+                ->withRedirect('/s/'.$stream->name);
         }
 
         return $this->view->render($response, 'token/use-token.html', [
             'stream' => $stream,
             'hasError' => true,
         ]);
-    });
+    })->setName('token-try');
 
     $app->post('/token/{stream}', function(Request $request, Response $response, array $args) use ($settings, $tokenService) {
         $user = $request->getAttribute('user');

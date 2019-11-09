@@ -27,7 +27,7 @@ function absolute_path(string $relative): string
 {
     $root = dirname(__FILE__) . '/../';
 
-    return realpath($root . $relative);
+    return $root . $relative;
 }
 
 /**
@@ -39,4 +39,14 @@ function absolute_path(string $relative): string
 function generate_token(int $size = 5): string
 {
     return strtoupper(substr(bin2hex(random_bytes($size)), 0, $size));
+}
+
+/**
+ * Get the tokens cookie name
+ *
+ * @return string
+ */
+function token_cookie_name(): string
+{
+    return 'TOKENS';
 }

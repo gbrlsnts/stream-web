@@ -8,7 +8,8 @@ ENV ENV=DEV \
     DEFAULT_PASSWORD=ezstream \
     PASSWORD_ALGO= \
     STREAM_FLASH_URL=rtmp://localhost/stream/%stream% \
-    STREAM_HLS_URL=http://localhost:8181/hls/%stream%.m3u8
+    STREAM_HLS_URL=http://localhost:8181/hls/%stream%.m3u8 \
+    TOKEN_SIZE=5
 
 WORKDIR /usr/src/app
 

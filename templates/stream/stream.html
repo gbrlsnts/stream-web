@@ -25,20 +25,6 @@
 <div class="ui container">
     <div class="ui inverted segment">
         <h1 class="ui header">{{ stream.name }}</h1>
-        
-        {% if not stream.is_private %}
-        <form class="button form" action="/s/{{ stream.name }}/lock" method="post">
-            <button type="submit" class="ui red inverted icon button" data-tooltip="Lock stream">
-                <i class="lock icon"></i>
-            </button>
-        </form>
-        {% else %}
-        <form class="button form" action="/s/{{ stream.name }}/unlock" method="post">
-            <button type="submit" class="ui green inverted icon button" data-tooltip="Unlock stream">
-                <i class="unlock icon"></i>
-            </button>
-        </form>
-        {% endif %}
 
         <a href="{{ hlsUrl }}" class="ui orange inverted button" data-tooltip="HTTP Stream | Stable" download target="_blank">
             <i class="download icon"></i>
@@ -50,6 +36,20 @@
             <i class="play icon"></i>
             VLC Direct
         </a>
+
+            {% if not stream.is_private %}
+            <form class="button form" action="/s/{{ stream.name }}/lock" method="post">
+                <button type="submit" class="ui red inverted icon button" data-tooltip="Lock stream">
+                    <i class="lock icon"></i>
+                </button>
+            </form>
+            {% else %}
+            <form class="button form" action="/s/{{ stream.name }}/unlock" method="post">
+                <button type="submit" class="ui green inverted icon button" data-tooltip="Unlock stream">
+                    <i class="unlock icon"></i>
+                </button>
+            </form>
+            {% endif %}
         {% endif %}
     </div>
 

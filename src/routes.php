@@ -5,9 +5,12 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 use App\Middleware\NoAuthenticationRedirectToStream;
+use App\Middleware\ShowResponseCode;
 
 return function (App $app) {
     $container = $app->getContainer();
+
+    $view = $app->getContainer()->get('view');
     $settings = $container->get('settings');
     $authService = $container->get('auth');
 
@@ -27,4 +30,7 @@ return function (App $app) {
     // Token routes
     $token = require __DIR__ . '/routes/token.php';
     $token($app);
+
+    // Catch all errors view (if it exists)
+    $app->add(new ShowResponseCode($view));
 };

@@ -6,6 +6,7 @@ use Slim\Http\Response;
 
 use App\Middleware\NoAuthenticationRedirectToStream;
 use App\Middleware\AccessTokenPrivateStream;
+use App\Middleware\RejectInvalidStream;
 use App\Models\Stream;
 
 return function (App $app) {
@@ -34,7 +35,7 @@ return function (App $app) {
         return $this->view->render($response, 'stream/stream-list.html', [
             'streams' => $streamList
         ]);
-    })->add(new NoAuthenticationRedirectToStream($authService, $settings['app']['default_stream']));
+    })->setName('stream-list')->add(new NoAuthenticationRedirectToStream($authService, $settings['app']['default_stream']));
 
     // Stream
     $app->get('/s/{stream}', function(Request $request, Response $response, array $args) use ($settings) {
@@ -58,11 +59,13 @@ return function (App $app) {
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
             'isOwner' => $streamElement->id === $_SESSION['user_id'], // stream id is the same as user id
         ]);
-    })->add(new AccessTokenPrivateStream($router, $authService, $tokenService));
+    })->setName('stream')
+        ->add(new AccessTokenPrivateStream($router, $authService, $tokenService))
+        ->add(new RejectInvalidStream);
 
     $app->post('/s/{stream}/lock', function(Request $request, Response $response, array $args) {
         $user = $request->getAttribute('user');
-        $stream = (new Stream)->where('name', $args['stream'])->first();
+        $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
 
         if(is_null($user) || $user->id !== $stream->id) {
             return $response->withStatus(403);
@@ -72,11 +75,11 @@ return function (App $app) {
         $stream->save();
 
         return $response->withRedirect('/s/'.$stream->name);
-    });
+    })->setName('stream-lock');
 
     $app->post('/s/{stream}/unlock', function(Request $request, Response $response, array $args) {
         $user = $request->getAttribute('user');
-        $stream = (new Stream)->where('name', $args['stream'])->first();
+        $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
 
         if(is_null($user) || $user->id !== $stream->id) {
             return $response->withStatus(403);
@@ -86,6 +89,6 @@ return function (App $app) {
         $stream->save();
 
         return $response->withRedirect('/s/'.$stream->name);
-    });
+    })->setName('stream-unlock');
 };
 

@@ -13,10 +13,12 @@ use App\Services\Token;
 use App\Models\Stream;
 
 use App\Traits\RedirectsUsers;
+use App\Traits\ExtractsStreamFromRequest;
 
 class AccessTokenPrivateStream
 {
-    use RedirectsUsers; 
+    use RedirectsUsers;
+    use ExtractsStreamFromRequest;
 
     /**
      * Slim router
@@ -90,27 +92,6 @@ class AccessTokenPrivateStream
         $stream = (new Stream)->where('name', $streamName)->firstOrFail();
 
         return $this->tokenService->isTokenValid($stream->id, $token);
-    }
-
-    /**
-     * Extract the stream name from the request object
-     *
-     * @param PsrRequest $request
-     * @return string
-     */
-    protected function getStreamName(PsrRequest $request): string
-    {
-        $routeInfo = $request->getAttribute('routeInfo');
-
-        if(count($routeInfo) === 0)
-            return '';
-
-        $params =  $routeInfo[2];
-        
-        if(count($params) === 0)
-            return '';
-
-        return $params['stream'] ?? '';
     }
 
     /**

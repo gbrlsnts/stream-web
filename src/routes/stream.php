@@ -54,6 +54,7 @@ return function (App $app) {
         return $this->view->render($response, 'stream/stream.html', [
             'stream' => $streamElement,
             'title' => $streamElement->name,
+            'streamAbsoluteUrl' => $settings['app']['app_url'] . '/s/' . $args['stream'],
             'flashUrl' => format_stream_url($playerSettings['flash_url'], $args['stream']),
             'hlsUrl' => format_stream_url($playerSettings['hls_url'], $args['stream']),
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],

@@ -4,6 +4,7 @@ VOLUME [ "/usr/src/app/data" ]
 
 ENV ENV=DEV \
     APP_NAME='Stream Demo' \
+    APP_URL='http://localhost:8080' \
     DEFAULT_STREAM=ezstream \
     DEFAULT_PASSWORD=ezstream \
     PASSWORD_ALGO= \

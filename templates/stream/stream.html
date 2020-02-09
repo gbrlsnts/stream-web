@@ -99,11 +99,20 @@
                 {% for token in stream.tokens %}
                 <tr>
                     <td>
-                        <form action="/token/delete/{{ token.id }}" method="post">
+                        <form
+                            onsubmit="return confirm('Remove token {{ token.token }}?');"
+                            class="inline"
+                            action="/token/delete/{{ token.id }}"
+                            method="post"
+                            >
                             <button type="submit" class="ui red inverted icon button" data-tooltip="Delete token">
                                 <i class="trash icon"></i>
                             </button>
                         </form>
+                        <button onclick="copyToClipboard($(this).next('p').text());" class="ui green inverted icon button" data-tooltip="Copy token link">
+                            <i class="copy icon"></i>
+                        </button>
+                        <p style="display:none">{{ streamAbsoluteUrl }}?token={{ token.token }}</p>
                     </td>
                     <td>
                         {{ token.description }}
@@ -174,5 +183,13 @@
     player.persistvolume({
         namespace: 'stream'
     });
+
+    function copyToClipboard(text) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(text).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
 </script>
 {% endblock %}

@@ -91,6 +91,9 @@ class AccessTokenPrivateStream
         $userId = $this->authService->getAuthenticatedUserId();
         $stream = (new Stream)->where('name', $streamName)->firstOrFail();
 
+        if(!$stream->is_private)
+            return true;
+
         return $this->tokenService->isTokenValid($stream->id, $token);
     }
 

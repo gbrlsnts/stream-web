@@ -43,8 +43,8 @@ return [
         'player' => [
             'flash_url'         => appenv('STREAM_FLASH_URL', 'rtmp://localhost/stream/%stream%'),
             'hls_url'           => appenv('STREAM_HLS_URL', 'http://localhost/hls/%stream%.m3u8'),
-            'flash_techorder'   => ['flash', 'html5'],
-            'default_techorder' => ['html5'],
+            'flash_techorder'   => ['chromecast', 'flash', 'html5'],
+            'default_techorder' => ['chromecast', 'html5'],
         ]
     ],
 ];

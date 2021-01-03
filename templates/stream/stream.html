@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block styles %}
-<link href="/css/chromecast.css" rel="stylesheet">
-<link href="//vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet">
+<link href="/plugins/chromecast/silvermine-videojs-chromecast.css" rel="stylesheet">
+<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,6 @@
             <source src="{{ flashUrl }}" type='rtmp/mp4'>
             {% endif %}
             
-            <!--<source src="//rn.barricas.rocks/dash/{{ stream.name }}.mpd" type='application/dash+xml'>-->
             <source src="{{ hlsUrl }}" type='application/x-mpegurl'>
         
         </video>
@@ -155,34 +154,30 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-
-<script src="//vjs.zencdn.net/7.3.0/video.js"></script>
-<script src="//cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-flash@2/dist/videojs-flash.min.js"></script>
 <script src="/js/videojs.persistvolume.js"></script>
 
-<script src="/js/videojs-chromecast.min.js"></script>
+<script src="/plugins/chromecast/silvermine-videojs-chromecast.min.js"></script>
+<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 
 <script>
     const config = {
         techOrder: {{ techorder | json_encode | raw }},
         plugins: {
-            chromecast: {
-                appId: 'chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID',
-                metadata: {
-                    title: '{{ stream.name }}'
-                }
-            }
+            chromecast: {}
         }
     };
 
-    const player = videojs('player', config);
+    (function(window, videojs) {
+        const player = videojs('player', config);
 
-    player.reloadSourceOnError();
+        player.reloadSourceOnError();
 
-    player.persistvolume({
-        namespace: 'stream'
-    });
+        player.persistvolume({
+            namespace: 'stream'
+        });
+    })(window, window.videojs);
 
     function copyToClipboard(text) {
         var $temp = $("<input>");

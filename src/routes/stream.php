@@ -64,6 +64,7 @@ return function (App $app) {
         ->add(new AccessTokenPrivateStream($router, $authService, $tokenService))
         ->add(new RejectInvalidStream);
 
+    // Lock stream
     $app->post('/s/{stream}/lock', function(Request $request, Response $response, array $args) {
         $user = $request->getAttribute('user');
         $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
@@ -78,6 +79,7 @@ return function (App $app) {
         return $response->withRedirect('/s/'.$stream->name);
     })->setName('stream-lock');
 
+    // Unlock stream
     $app->post('/s/{stream}/unlock', function(Request $request, Response $response, array $args) {
         $user = $request->getAttribute('user');
         $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();

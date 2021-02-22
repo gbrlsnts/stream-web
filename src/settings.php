@@ -10,6 +10,7 @@ return [
             'name'                  => appenv('APP_NAME', 'Stream Demo'),
             'app_url'               => appenv('APP_URL', 'http://localhost'),
             'default_stream'        => appenv('DEFAULT_STREAM', 'ezstream'),
+            'default_stream_token'  => appenv('DEFAULT_STREAM_TOKEN', 'ezstream'),
             'default_password'      => appenv('DEFAULT_PASSWORD', 'ezstream'),
             'password_algo'         => appenv('PASSWORD_ALGO') ?: PASSWORD_DEFAULT,
             'token_size'            => appenv('TOKEN_SIZE', 5),

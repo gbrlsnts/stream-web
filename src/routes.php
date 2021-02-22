@@ -31,6 +31,10 @@ return function (App $app) {
     $token = require __DIR__ . '/routes/token.php';
     $token($app);
 
+    // Origin routes
+    $origin = require __DIR__ . '/routes/origin.php';
+    $origin($app);
+
     // Catch all errors view (if it exists)
     $app->add(new ShowResponseCode($view));
 };

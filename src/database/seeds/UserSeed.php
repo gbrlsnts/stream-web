@@ -44,6 +44,7 @@ class UserSeed extends AbstractSeed
             [
                 'id' => 1,
                 'name' => $userData[0]['username'],
+                'token' => $settings['settings']['app']['default_stream_token'],
                 'created_at' => Carbon::now()->toDateTimeString(),
             ]
         ];

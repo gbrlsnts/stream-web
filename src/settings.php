@@ -14,6 +14,8 @@ return [
             'default_password'      => appenv('DEFAULT_PASSWORD', 'ezstream'),
             'password_algo'         => appenv('PASSWORD_ALGO') ?: PASSWORD_DEFAULT,
             'token_size'            => appenv('TOKEN_SIZE', 5),
+            'secure_link_secret'    => appenv('SECURE_LINK_SECRET', 'secret'),
+            'secure_link_ttl'       => appenv('SECURE_LINK_TTL', 3600),
             'encryption_key_path'   => absolute_path('data/crypto.key'),
         ],
 
@@ -42,8 +44,7 @@ return [
         // Player settings
         // Stream url must contain %stream% placeholder
         'player' => [
-            'flash_url'         => appenv('STREAM_FLASH_URL', 'rtmp://localhost/stream/%stream%'),
-            'hls_url'           => appenv('STREAM_HLS_URL', 'http://localhost/hls/%stream%.m3u8'),
+            'hls_url'           => appenv('STREAM_HLS_URL', 'http://localhost/hls/%stream%.m3u8?expires=%expire%&token=%token%'),
             'flash_techorder'   => ['chromecast', 'flash', 'html5'],
             'default_techorder' => ['chromecast', 'html5'],
         ]

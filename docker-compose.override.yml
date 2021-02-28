@@ -24,7 +24,7 @@ services:
       dockerfile: ./fpm/Dockerfile
     environment:
       - STREAM_FLASH_URL=rtmp://192.168.1.33/stream/%stream%
-      - STREAM_HLS_URL=http://192.168.1.33:8181/hls/%stream%.m3u8
+      - STREAM_HLS_URL=http://192.168.1.33:8181/hls/%stream%.m3u8?expires=%expire%&token=%token%
     volumes:
       - .:/usr/src/app
       - ./data:/usr/src/app/data

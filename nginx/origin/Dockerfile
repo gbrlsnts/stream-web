@@ -1,10 +1,11 @@
-FROM dvdgiessen/nginx-rtmp-docker
+FROM barricas/nginx-rtmp-docker-plus
 
 EXPOSE 80
 
 ENV HLS_URL=http://localhost:8181/hls/ \
     HLS_FRAGMENT=2s \
     HLS_PLAYLIST_LENGTH=10s \
+    SECURE_LINK_SECRET=secret \
     CORS_URL=*
 
 RUN apk --no-cache add gettext

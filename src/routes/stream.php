@@ -55,8 +55,8 @@ return function (App $app) {
             'stream' => $streamElement,
             'title' => $streamElement->name,
             'streamAbsoluteUrl' => $settings['app']['app_url'] . '/s/' . $args['stream'],
-            'flashUrl' => format_stream_url($playerSettings['flash_url'], $args['stream']),
-            'hlsUrl' => format_stream_url($playerSettings['hls_url'], $args['stream']),
+            'hlsUrl' => get_secured_stream_url($request, $streamElement, $settings),
+            'friendlyHlsUrl' => "/play/$streamName.m3u8",
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
             'isOwner' => $streamElement->id === $_SESSION['user_id'], // stream id is the same as user id
         ]);
@@ -78,6 +78,21 @@ return function (App $app) {
 
         return $response->withRedirect('/s/'.$stream->name);
     })->setName('stream-lock');
+
+    $app->get('/play/{name}.m3u8', function(Request $request, Response $response, array $args) use ($settings) {
+        $stream = (new Stream())
+            ->with('tokens')
+            ->where('name', $args['name'])
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if(!$stream)
+            return $response->withStatus(404);
+
+        $url = get_secured_stream_url($request, $stream, $settings);
+
+        return $response->withRedirect($url);
+    });
 
     // Unlock stream
     $app->post('/s/{stream}/unlock', function(Request $request, Response $response, array $args) {

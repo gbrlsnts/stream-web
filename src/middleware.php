@@ -4,7 +4,10 @@ use Slim\App;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
+use RKA\Middleware\IpAddress;
+
 return function (App $app) {
+    $settings = $app->getContainer()->get('settings');
 
     // Add trailing slashes
     $app->add(function (Request $request, Response $response, callable $next) {
@@ -46,4 +49,23 @@ return function (App $app) {
         return $next($request, $response);
     });
 
+    // Get trusted client ip address
+    $headersToInspect = [
+        'CF-Connecting-IP',
+        'True-Client-IP',
+        'Forwarded',
+        'X-Forwarded-For',
+        'X-Forwarded',
+        'X-Cluster-Client-Ip',
+        'Client-Ip',
+    ];
+
+    $checkHeaders = $settings['app']['env'] !== 'DEV';
+
+    $app->add(new IpAddress(
+        $checkHeaders,
+        get_trusted_proxies(),
+        null,
+        $headersToInspect
+    ));
 };

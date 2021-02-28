@@ -31,12 +31,7 @@
         </a>
 
         {% if isOwner %}
-        <a href="{{ flashUrl }}" class="ui orange inverted button" data-tooltip="RTMP Stream | No Delay | Copy the link">
-            <i class="play icon"></i>
-            VLC Direct
-        </a>
-
-            {% if not stream.is_private %}
+            {% if isOwner and not stream.is_private %}
             <form class="button form" action="/s/{{ stream.name }}/lock" method="post">
                 <button type="submit" class="ui red inverted icon button" data-tooltip="Lock stream">
                     <i class="lock icon"></i>

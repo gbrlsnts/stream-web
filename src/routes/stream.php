@@ -79,20 +79,17 @@ return function (App $app) {
         return $response->withRedirect('/s/'.$stream->name);
     })->setName('stream-lock');
 
-    $app->get('/play/{name}.m3u8', function(Request $request, Response $response, array $args) use ($settings) {
+    $app->get('/play/{stream}.m3u8', function(Request $request, Response $response, array $args) use ($settings) {
         $stream = (new Stream())
-            ->with('tokens')
-            ->where('name', $args['name'])
-            ->orderBy('created_at', 'desc')
+            ->where('name', $args['stream'])
             ->first();
-
-        if(!$stream)
-            return $response->withStatus(404);
 
         $url = get_secured_stream_url($request, $stream, $settings);
 
         return $response->withRedirect($url);
-    });
+    })
+    ->add(new AccessTokenPrivateStream($router, $authService, $tokenService))
+    ->add(new RejectInvalidStream);
 
     // Unlock stream
     $app->post('/s/{stream}/unlock', function(Request $request, Response $response, array $args) {

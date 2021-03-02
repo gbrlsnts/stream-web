@@ -45,7 +45,7 @@ return [
         // Player settings
         // Stream url must contain %stream% placeholder
         'player' => [
-            'hls_url'           => appenv('STREAM_HLS_URL', 'http://localhost/hls/%stream%.m3u8?expires=%expire%&token=%token%'),
+            'hls_url'           => appenv('STREAM_HLS_URL', 'http://localhost/hls/%stream%.m3u8?expires=%expire%&token=%token%&user=%user%'),
             'flash_techorder'   => ['chromecast', 'flash', 'html5'],
             'default_techorder' => ['chromecast', 'html5'],
         ]

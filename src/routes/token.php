@@ -15,7 +15,7 @@ return function (App $app) {
 
     $app->get('/token/use/{stream}', function(Request $request, Response $response, array $args) {
         $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
-var_dump($request);die;
+
         return $this->view->render($response, 'token/use-token.html', [
             'stream' => $stream,
         ]);

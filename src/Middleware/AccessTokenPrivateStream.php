@@ -68,7 +68,11 @@ class AccessTokenPrivateStream
         $token = $this->tokenService->getStreamTokenFromRequest($request, $stream);
 
         if ($this->isAuthorized($stream, $token)) {
-            return $next($request->withAttribute('view_authorized', true), $response);
+            $passRequest = $request
+                ->withAttribute('stream_token', $token)
+                ->withAttribute('view_authorized', true);
+
+            return $next($passRequest, $response);
         }
 
         return $this->redirectUser($request, $response, $this->createRedirectPath($stream));

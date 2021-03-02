@@ -12,7 +12,8 @@ ENV ENV=DEV \
     STREAM_HLS_URL=http://localhost:8181/hls/%stream%.m3u8?expires=%expire%&token=%token% \
     SECURE_LINK_SECRET=secret \
     SECURE_LINK_TTL=1800 \
-    TOKEN_SIZE=5
+    TOKEN_SIZE=5 \
+    TRUSTED_PROXY=172.16.0.0/12
 
 WORKDIR /usr/src/app
 

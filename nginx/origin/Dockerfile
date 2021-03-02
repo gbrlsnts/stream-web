@@ -6,7 +6,9 @@ ENV HLS_URL=http://localhost:8181/hls/ \
     HLS_FRAGMENT=2s \
     HLS_PLAYLIST_LENGTH=10s \
     SECURE_LINK_SECRET=secret \
-    CORS_URL=*
+    CORS_URL=* \
+    TRUSTED_PROXY=172.16.0.0/12 \
+    REAL_IP_HEADER=X-Forwarded-For
 
 RUN apk --no-cache add gettext
 

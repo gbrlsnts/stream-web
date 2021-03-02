@@ -16,6 +16,7 @@ return [
             'token_size'            => appenv('TOKEN_SIZE', 5),
             'secure_link_secret'    => appenv('SECURE_LINK_SECRET', 'secret'),
             'secure_link_ttl'       => appenv('SECURE_LINK_TTL', 3600),
+            'trusted_proxy'         => appenv('TRUSTED_PROXY', '172.16.0.0/12'),
             'encryption_key_path'   => absolute_path('data/crypto.key'),
         ],
 

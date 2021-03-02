@@ -64,7 +64,7 @@ return function (App $app) {
 
     $app->add(new IpAddress(
         $checkHeaders,
-        get_trusted_proxies(),
+        get_trusted_proxies($settings),
         null,
         $headersToInspect
     ));

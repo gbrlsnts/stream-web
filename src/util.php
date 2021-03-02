@@ -117,9 +117,9 @@ function get_secured_stream_url(Request $request, Stream $stream, object $settin
  *
  * @return string
  */
-function get_trusted_proxies(): array
+function get_trusted_proxies($settings): array
 {
-    $contents = file_get_contents(absolute_path('data/trusted-proxies.txt'));
+    $contents = $settings['app']['trusted_proxy'];
 
-    return explode("\n", $contents);
+    return explode(',', $contents);
 }

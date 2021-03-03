@@ -145,3 +145,21 @@ function get_trusted_proxies($settings): array
 
     return explode(',', $contents);
 }
+
+/**
+ * Get the friendly hls url
+ *
+ * @param Request $request
+ * @param string $stream
+ * @return string
+ */
+function getFriendlyHlsUrl(Request $request, string $stream): string
+{
+    $token = $request->getAttribute('stream_token');
+    $base = "/play/$stream.m3u8";
+
+    if(!$token)
+        return $base;
+
+    return $base . '?token=' . $token;
+}

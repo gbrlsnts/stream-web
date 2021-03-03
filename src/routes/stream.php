@@ -56,7 +56,7 @@ return function (App $app) {
             'title' => $streamElement->name,
             'streamAbsoluteUrl' => $settings['app']['app_url'] . '/s/' . $args['stream'],
             'hlsUrl' => get_secured_stream_url($request, $streamElement, $settings),
-            'friendlyHlsUrl' => "/play/$streamName.m3u8",
+            'friendlyHlsUrl' => getFriendlyHlsUrl($request, $streamName),
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],
             'isOwner' => $streamElement->id === $_SESSION['user_id'], // stream id is the same as user id
         ]);

@@ -125,7 +125,8 @@ function get_secured_stream_url(Request $request, Stream $stream, object $settin
  * @param Request $request
  * @return string
  */
-function getStreamToken(Request $request): string {
+function getStreamToken(Request $request): string
+{
     $token = $request->getAttribute('stream_token');
 
     if($user)

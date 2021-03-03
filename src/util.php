@@ -100,7 +100,7 @@ function get_secure_link_params($user, $stream, $ip, $secret, $ttl = 3600): arra
  */
 function get_secured_stream_url(Request $request, Stream $stream, object $settings): string
 {
-    $user = getUserIdOrToken($request);
+    $user = getStreamToken($request);
 
     $secureLink = get_secure_link_params(
         $user,
@@ -120,17 +120,16 @@ function get_secured_stream_url(Request $request, Stream $stream, object $settin
 }
 
 /**
- * Get an user id or token in current request
+ * Get a in current request. if user is logged it will override to empty
  *
  * @param Request $request
  * @return string
  */
-function getUserIdOrToken(Request $request): string {
-    $user = $request->getAttribute('user');
+function getStreamToken(Request $request): string {
     $token = $request->getAttribute('stream_token');
 
     if($user)
-        return (string) $user->id;
+        return '';
 
     return $token ?? '';
 }

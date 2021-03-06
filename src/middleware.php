@@ -5,6 +5,7 @@ use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use RKA\Middleware\IpAddress;
+use \Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Middleware\ShowResponseCode;
 
@@ -52,6 +53,15 @@ return function (App $app) {
         $viewService->getEnvironment()->addGlobal('authUser', $user);
     
         return $next($request, $response);
+    });
+
+    // Catch model not found and return 404
+    $app->add(function (Request $request, Response $response, callable $next) {
+        try {
+            return $next($request, $response);
+        } catch(ModelNotFoundException $e) {
+            return $response->withStatus(404);
+        }
     });
 
     // Catch all errors view (if it exists)

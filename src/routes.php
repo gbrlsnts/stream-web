@@ -5,7 +5,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 use App\Middleware\NoAuthenticationRedirectToStream;
-use App\Middleware\ShowResponseCode;
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -34,7 +33,4 @@ return function (App $app) {
     // Origin routes
     $origin = require __DIR__ . '/routes/origin.php';
     $origin($app);
-
-    // Catch all errors view (if it exists)
-    $app->add(new ShowResponseCode($view));
 };

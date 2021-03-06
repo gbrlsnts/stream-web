@@ -6,8 +6,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 use RKA\Middleware\IpAddress;
 
+use App\Middleware\ShowResponseCode;
+
 return function (App $app) {
-    $settings = $app->getContainer()->get('settings');
+    $container = $app->getContainer();
+
+    $settings = $container->get('settings');
+    $view = $container->get('view');
 
     // Add trailing slashes
     $app->add(function (Request $request, Response $response, callable $next) {
@@ -48,6 +53,9 @@ return function (App $app) {
     
         return $next($request, $response);
     });
+
+    // Catch all errors view (if it exists)
+    $app->add(new ShowResponseCode($view));
 
     // Get trusted client ip address
     $headersToInspect = [

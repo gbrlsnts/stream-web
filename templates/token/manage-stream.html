@@ -5,7 +5,7 @@
 <div class="ui container">
 
     <h3 class="ui dividing header">
-        {{ stream.name }} - Access Tokens
+        {{ title }}
 
         {% if not stream.is_private %}
         <a class="ui small black label">
@@ -38,7 +38,18 @@
         {% if tokens|length > 0 %}
         <table class="ui selectable inverted table">
             <thead>
-                <th></th>
+                <th>
+                    <form
+                        onsubmit="return confirm('Delete all tokens?');"
+                        class="inline"
+                        action="/token/delete-bulk/{{ stream.name }}"
+                        method="post"
+                        >
+                        <button type="submit" class="ui red inverted icon button" data-tooltip="Delete all token">
+                            <i class="trash icon"></i>
+                        </button>
+                    </form>
+                </th>
                 <th>Description</th>
                 <th>Token</th>
                 <th>Usages (max)</th>

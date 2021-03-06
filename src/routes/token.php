@@ -76,6 +76,19 @@ return function (App $app) {
         return $response->withRedirect('/token/manage/'.$token->stream->name);
     });
 
+    $app->post('/token/delete-bulk/{stream}', function(Request $request, Response $response, array $args) {
+        $user = $request->getAttribute('user');
+        $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
+
+        if(is_null($user) || $user->id !== $stream->id) {
+            return $response->withStatus(403);
+        }
+
+        (new Token)->where('stream_id', $stream->id)->delete();
+
+        return $response->withRedirect('/token/manage/'.$stream->name);
+    });
+
     $app->get('/token/manage/{stream}', function(Request $request, Response $response, array $args) use ($settings) {
         $user = $request->getAttribute('user');
         $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
@@ -92,6 +105,7 @@ return function (App $app) {
         return $this->view->render($response, 'token/manage-stream.html', [
             'stream' => $stream,
             'tokens' => $tokens,
+            'title' => $stream->name . ': Manage Access Tokens',
             'streamAbsoluteUrl' => $settings['app']['app_url'] . '/s/' . $args['stream'],
         ]);
     });

@@ -59,7 +59,7 @@ return function (App $app) {
             Carbon::parse($body['expires_at'])
         );
 
-        return $response->withRedirect('/s/'.$stream->name);
+        return $response->withRedirect('/token/manage/'.$stream->name);
     });
 
     $app->post('/token/delete/{id}', function(Request $request, Response $response, array $args) {
@@ -73,7 +73,27 @@ return function (App $app) {
 
         $token->delete();
 
-        return $response->withRedirect('/s/'.$token->stream->name);
+        return $response->withRedirect('/token/manage/'.$token->stream->name);
+    });
+
+    $app->get('/token/manage/{stream}', function(Request $request, Response $response, array $args) use ($settings) {
+        $user = $request->getAttribute('user');
+        $stream = (new Stream)->where('name', $args['stream'])->firstOrFail();
+
+        if(is_null($user) || $user->id !== $stream->id) {
+            return $response->withStatus(403);
+        }
+
+        $tokens = (new Token)
+            ->where('stream_id', $stream->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $this->view->render($response, 'token/manage-stream.html', [
+            'stream' => $stream,
+            'tokens' => $tokens,
+            'streamAbsoluteUrl' => $settings['app']['app_url'] . '/s/' . $args['stream'],
+        ]);
     });
 
 };

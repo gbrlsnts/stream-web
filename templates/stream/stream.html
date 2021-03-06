@@ -31,6 +31,12 @@
         </a>
 
         {% if isOwner %}
+
+        <a href="/token/manage/{{ stream.name }}" class="ui black inverted button" target="_blank">
+            <i class="users icon"></i>
+            Manage Tokens
+        </a>
+
             {% if isOwner and not stream.is_private %}
             <form class="button form" action="/s/{{ stream.name }}/lock" method="post">
                 <button type="submit" class="ui red inverted icon button" data-tooltip="Lock stream">
@@ -46,104 +52,6 @@
             {% endif %}
         {% endif %}
     </div>
-
-    {% if isOwner %}
-    <h3 class="ui dividing header">
-        Access Tokens
-
-        {% if not stream.is_private %}
-        <a class="ui small black label">
-            <i class="info circle icon"></i>
-            Not applicable: public stream
-        </a>
-        {% endif %}
-    </h3>
-
-    <form class="ui form" action="/token/{{ stream.name }}" method="POST">
-
-        <div class="inline fields">
-            <div class="field">
-                <input type="text" name="description" id="description" placeholder="Description (Mandatory)" autocomplete="off" required>
-            </div>
-            <div class="field">
-                <input type="number" name="max_usages" id="max_usages" placeholder="Max Usages" min="0">
-            </div>
-            <div class="field">
-                <input type="date" name="expires_at" id="expires_at" placeholder="Expires At">
-            </div>
-            <button class="ui green inverted button" type="submit">
-                <i class="plus icon"></i> Create Token
-            </button>
-        </div>
-
-    </form>
-
-    <div class="tokens wrapper">
-        {% if stream.tokens|length > 0 %}
-        <table class="ui selectable inverted table">
-            <thead>
-                <th></th>
-                <th>Token</th>
-                <th>Description</th>
-                <th>Usages (max)</th>
-                <th>Created</th>
-                <th>Expires</th>
-            </thead>
-            <tbody>
-                {% for token in stream.tokens %}
-                <tr>
-                    <td>
-                        <form
-                            onsubmit="return confirm('Remove token {{ token.token }}?');"
-                            class="inline"
-                            action="/token/delete/{{ token.id }}"
-                            method="post"
-                            >
-                            <button type="submit" class="ui red inverted icon button" data-tooltip="Delete token">
-                                <i class="trash icon"></i>
-                            </button>
-                        </form>
-                        <button onclick="copyToClipboard($(this).next('p').text());" class="ui green inverted icon button" data-tooltip="Copy token link">
-                            <i class="copy icon"></i>
-                        </button>
-                        <p style="display:none">{{ streamAbsoluteUrl }}?token={{ token.token }}</p>
-                    </td>
-                    <td>
-                        {{ token.description }}
-                    </td>
-                    <td>
-                        {{ token.token }}
-                    </td>
-                    <td>
-                        {{ token.num_usages }}
-                        
-                        {% if token.max_usages > 0 %}
-                            ({{ token.max_usages }})
-                        {% else %}
-                            (inf)
-                        {% endif %}
-                    </td>
-                    <td>
-                        {{ token.created_at }}
-                    </td>
-                    <td>
-                        {% if token.expires_at %}
-                            {{ token.expires_at }}
-                        {% else %}
-                            never
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <div class="ui info message">
-            No tokens to show
-        </div>
-        {% endif %}
-    </div>
-    {% endif %}
 </div>
 
 {% endblock %}
@@ -173,13 +81,5 @@
             namespace: 'stream'
         });
     })(window, window.videojs);
-
-    function copyToClipboard(text) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val(text).select();
-        document.execCommand("copy");
-        $temp.remove();
-    }
 </script>
 {% endblock %}

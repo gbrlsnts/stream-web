@@ -46,7 +46,6 @@ return function (App $app) {
         $streamName = $args['stream'];
 
         $streamElement = (new Stream())
-            ->with('tokens')
             ->where('name', $streamName)
             ->orderBy('created_at', 'desc')
             ->first();
@@ -54,7 +53,6 @@ return function (App $app) {
         return $this->view->render($response, 'stream/stream.html', [
             'stream' => $streamElement,
             'title' => $streamElement->name,
-            'streamAbsoluteUrl' => $settings['app']['app_url'] . '/s/' . $args['stream'],
             'hlsUrl' => get_secured_stream_url($request, $streamElement, $settings),
             'friendlyHlsUrl' => getFriendlyHlsUrl($request, $streamName),
             'techorder' => $isFlash ? $playerSettings['flash_techorder'] : $playerSettings['default_techorder'],

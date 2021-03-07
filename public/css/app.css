@@ -1,36 +1,47 @@
 /* app */
 
 body {
-    padding-bottom: 1em;
+  padding-bottom: 1em;
 }
 
 .ui.main.menu {
-    margin: 0;
-    border-radius: 0;
+  margin: 0;
+  border-radius: 0;
 }
 
 .main.content > .ui.container {
-    padding: 2em 0 2em 0;
+  padding: 2em 0 2em 0;
 }
 
-form.button.form, .inline {
-    display: inline;
+form.button.form,
+.inline {
+  display: inline;
 }
 
 /* streams */
 .ui.streams.grid a:link > div,
 .ui.streams.grid a:visited > div {
-    color: black;
+  color: black;
 }
 
 /* player */
 
 .player.wrapper {
-    padding: 2em 0 2em 0;
+  padding: 2em 0 2em 0;
 }
 
 /* tokens */
 
 .tokens.wrapper {
-    margin-top: .5em;
+  margin-top: 0.5em;
+}
+
+/* misc */
+
+.full-width {
+  width: 100% !important;
+}
+
+.full-height {
+  height: 100% !important;
 }

@@ -25,9 +25,8 @@ return function (App $app) {
     $app->get('/s', function(Request $request, Response $response, array $args) use ($settings) {
         $user = $request->getAttribute('user');
 
-        // todo: place into middleware
         if (is_null($user) || !$user->can_list_streams) {
-            return $response->withRedirect('/s/' . $settings['app']['default_stream']);
+            return $response->withStatus(403);
         }
 
         $streamList = (new Stream())->all();
@@ -35,7 +34,7 @@ return function (App $app) {
         return $this->view->render($response, 'stream/stream-list.html', [
             'streams' => $streamList
         ]);
-    })->setName('stream-list')->add(new NoAuthenticationRedirectToStream($authService, $settings['app']['default_stream']));
+    })->setName('stream-list');
 
     // Stream
     $app->get('/s/{stream}', function(Request $request, Response $response, array $args) use ($settings) {

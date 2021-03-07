@@ -16,7 +16,7 @@ return function (App $app) {
     // Index
     $app->get('/', function(Request $request, Response $response, array $args) {
         return $this->view->render($response, 'index.html');
-    })->add(new NoAuthenticationRedirectToStream($authService, $settings['app']['default_stream']));
+    });
 
     // Stream routes
     $stream = require __DIR__ . '/routes/stream.php';

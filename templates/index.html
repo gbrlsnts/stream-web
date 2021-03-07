@@ -2,6 +2,64 @@
 
 {% block content %}
     <div class="ui content container">
-        Index page
+        <div class="ui three columns stackable grid">
+            <div class="column">
+                <div class="ui inverted padded full-height segment">
+                    <h3 class="ui green header">
+                        <i class="check icon"></i>
+                        <div class="content">Easy setup</div>
+                    </h3>
+
+                    <p>
+                        Easily allows anyone to start sharing content with common apps such as OBS.
+                    </p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="ui inverted padded full-height segment">
+                    <h3 class="ui blue header">
+                        <i class="share alternate icon"></i>
+                        <div class="content">Share anywhere, anyone</div>
+                    </h3>
+
+                    <p>
+                        You can view the content through the web app, mobile phones, TVs, VLC and any other modern device.
+                    </p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="ui inverted padded full-height segment">
+                    <h3 class="ui red header">
+                        <i class="lock icon"></i>
+                        <div class="content">Protect your content</div>
+                    </h3>
+                    
+                    <p>
+                        Don't want anyone snooping in your content? Turn it into a protected content and allow individual access by link.
+                    </p>     
+                </div>
+            </div>
+        </div>
+
+        <div class="ui black attached icon message">
+            <i class="times circle outline icon"></i>
+            <div class="content">
+                <div class="header">
+                    We're sorry - registration by invite only
+                </div>
+                <p>
+                    To create an account within the app you must first receive an invitation link.
+                    On the positive side, you can watch any content as long a link is shared with you!
+                </p>
+            </div>
+        </div>
+
+        <div class="ui bottom attached black message">
+            <i class="icon help"></i>
+            Already signed up? <a href="/login">Login here</a> instead.
+        </div>
+
     </div>
 {% endblock %}

@@ -3,14 +3,32 @@
 {% block content %}
 
 <div class="ui container">
-    <h1 class="ui header">Stream list</h1>
+    <h1 class="ui header">Streams</h1>
 
     <div class="ui streams grid">
         {% for stream in streams %}
         <div class="four wide column">
             <a href="/s/{{ stream.name }}">
-                <div class="ui segment">
-                    {{ stream.name }}
+                <div class="ui card">
+                    <div class="image">
+                        <img src="/img/stream-placeholder.png" alt="{{ stream.name }}">
+                    </div>
+
+                    <div class="content">
+                        <div class="header">
+                            {{ stream.name }}
+                        </div>
+
+                        <div class="meta">
+                            {% if stream.is_streaming %}
+                            <i class="red bullseye icon"></i>
+                            live now!
+                            {% else %}
+                            <i class="dot circle outline icon"></i>
+                            offline
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </a>
         </div>

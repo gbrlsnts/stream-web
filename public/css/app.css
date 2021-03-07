@@ -24,6 +24,11 @@ form.button.form,
   color: black;
 }
 
+.ui.streams.grid .ui.card {
+  box-shadow: none;
+  border-radius: 0.45rem;
+}
+
 /* player */
 
 .player.wrapper {

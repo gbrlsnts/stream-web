@@ -19,7 +19,7 @@
     <div class="ui large borderless inverted main menu">
         <div class="ui container">
             <div class="header item">
-                {{ appname }}
+                <a href="/">{{ appname }}</a>
             </div>
             {% if authUser and authUser.can_list_streams %}
             <a href="/s" class="item">Streams</a>

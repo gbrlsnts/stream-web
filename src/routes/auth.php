@@ -29,7 +29,7 @@ return function (App $app) {
     $app->get('/logout', function(Request $request, Response $response) use ($authService) {
         $authService->logout();
 
-        return $response->withRedirect('/s');
+        return $response->withRedirect('/');
     });
 };
 
